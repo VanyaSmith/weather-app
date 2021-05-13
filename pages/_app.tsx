@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
 
 import { theme } from 'src/globalStyles/theme'
-import { globalStyles } from 'src/globalStyles/styles'
+import { GlobalStyles } from 'src/globalStyles/styles'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClientRef = React.useRef<QueryClient>()
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
-          {globalStyles}
+          <GlobalStyles />
           <Component {...pageProps} />
         </ThemeProvider>
       </Hydrate>

@@ -35,7 +35,7 @@ export const GeoSearch = React.memo(({ onAddCity }: IGeoSearchProps) => {
           data.map((geoCode) => (
             <div key={geoCode.lat + geoCode.lon}>
               <button type="button" onClick={() => onAddCity(geoCode.name)}>
-                Добавить {geoCode.name}
+                Add {geoCode.name}
               </button>
             </div>
           ))

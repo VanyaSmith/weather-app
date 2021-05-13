@@ -1,5 +1,37 @@
+import { css } from '@emotion/react'
+
 export const theme = {
   colors: {
-    primary: 'hotpink',
+    Gray100: '#FAFAF9',
+    Gray200: '#E4E0DF',
+    Gray300: '#D6D2D1',
+    Gray400: '#8E8B8B',
+    Gray500: '#272525',
+    Purple100: '#730641',
   },
+  textMods: {
+    Display: css`
+      font-family: 'PT Root UI';
+      font-size: 48px;
+      line-height: 1;
+    `,
+    Body: css`
+      font-family: 'PT Root UI';
+      font-size: 16px;
+      line-height: 1.5;
+    `,
+    Caption: css`
+      font-family: 'PT Root UI';
+      font-size: 14px;
+      line-height: 20px;
+    `,
+    Caps: css`
+      font-family: 'PT Root UI';
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    `,
+  },
+  space: [0, 4, 8, 16, 24, 32, 48],
 }

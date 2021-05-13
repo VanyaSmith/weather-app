@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import cookies from 'next-cookies'
 import { QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
-import Layout from 'components/Layout'
+import { Layout } from 'uikit'
 import { Dashboard, getWeatherCard } from 'modules/dashboard'
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {

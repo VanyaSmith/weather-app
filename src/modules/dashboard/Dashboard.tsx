@@ -1,10 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react'
-import styled from '@emotion/styled'
 
 import { WeatherCard } from './components/WeatherCard'
 import { GeoSearch } from './components/GeoSearch'
-
-const StyledDashboard = styled.div``
+import { Col, Subtitle, Row, Title } from 'uikit'
 
 export interface IDashboardProps {
   cities?: string[] | null
@@ -43,10 +41,26 @@ export const Dashboard: React.FC<IDashboardProps> = ({ cities }) => {
   }, [])
 
   return (
-    <StyledDashboard>
-      <GeoSearch onAddCity={addCity} />
-      {currCities &&
-        currCities.map((city) => <WeatherCard key={city} city={city} onRemove={removeCity} />)}
-    </StyledDashboard>
+    <>
+      <Row mb={3}>
+        <Col width={[1, 1 / 2]}>
+          <Title>Weather forecast</Title>
+          <Subtitle>
+            Simple but powerful weather forcasting service based on OpenWeatherMap API
+          </Subtitle>
+        </Col>
+        <Col width={[1, 1 / 2]}>
+          <GeoSearch onAddCity={addCity} />
+        </Col>
+      </Row>
+      <Row>
+        {currCities &&
+          currCities.map((city) => (
+            <Col width={[1, 1 / 2]} pb={5} pt={0} key={city}>
+              <WeatherCard city={city} onRemove={removeCity} />
+            </Col>
+          ))}
+      </Row>
+    </>
   )
 }

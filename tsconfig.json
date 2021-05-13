@@ -19,7 +19,7 @@
     "target": "esnext",
     "jsxImportSource": "@emotion/react",
     "paths": {
-      "components/*": ["./src/components/*"],
+      "uikit": ["./src/uikit/index.ts"],
       "modules/*": ["./src/modules/*"],
       "interfaces/*": ["./src/interfaces/*"],
       "utils/*": ["./src/utils/*"],
