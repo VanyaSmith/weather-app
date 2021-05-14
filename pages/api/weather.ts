@@ -1,4 +1,4 @@
-import { IWeatherCard } from 'modules/dashboard/interfaces'
+import { WeatherCardData } from 'modules/dashboard/interfaces'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { api } from 'utils/api'
 
@@ -6,7 +6,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   const { q } = _req.query
 
   try {
-    const weather = await api<IWeatherCard>(`${process.env.NEXT_PUBLIC_WEATHER_HOST}/weather`, {
+    const weather = await api<WeatherCardData>(`${process.env.NEXT_PUBLIC_WEATHER_HOST}/weather`, {
       query: {
         q,
         appid: process.env.NEXT_PUBLIC_WEATHER_APIKEY || '',

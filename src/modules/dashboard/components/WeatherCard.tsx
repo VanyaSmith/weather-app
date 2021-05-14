@@ -2,18 +2,22 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { getWeatherCard } from '../query'
 import { useQuery, useQueryClient } from 'react-query'
-import { Text } from 'uikit'
+import { Loader, Text } from 'uikit'
 import { Flex } from '@rebass/grid/emotion'
 import Image from 'next/image'
 import { capitalizeFirstLetter } from 'utils/capitalize'
+import { CityData } from '../interfaces'
+import { useMutateCities } from '../hooks/useCities'
 
-const StyledWeatherCard = styled.div`
+const StyledWeatherCard = styled.div<{ isFetching?: boolean }>`
   width: 100%;
   min-height: 241px;
   position: relative;
   border-radius: 24px;
   background-color: #fff;
   padding: 24px 32px;
+  opacity: ${({ isFetching }) => (isFetching ? '0.5' : '1')};
+  transition: opacity 0.35s ease-in-out;
 `
 const RemoveButton = styled.button`
   width: 48px;
@@ -62,25 +66,27 @@ const WeatherCardInfo = styled.div`
   }
 `
 
-export interface IWeatherCardProps {
-  city: string
-  onRemove: (city: string) => void
+export interface WeatherCardProps extends CityData {
+  // onRemove: (city: CityData) => void
 }
 
-export const WeatherCard = React.memo(({ city, onRemove }: IWeatherCardProps) => {
-  console.log('Render', city)
-  const { data } = useQuery(['weatherCard', city], () => getWeatherCard(city))
+export const WeatherCard = React.memo(({ ...city }: WeatherCardProps) => {
+  const { data, isFetching } = useQuery(['weatherCard', city], () => getWeatherCard(city), {
+    refetchInterval: 15000,
+  })
+
+  const { removeCity } = useMutateCities()
   const queryClient = useQueryClient()
 
   const handleClick = () => {
     queryClient.removeQueries(['weatherCard', city])
-    onRemove(city)
+    removeCity(city)
   }
 
   return (
-    <StyledWeatherCard>
+    <StyledWeatherCard isFetching={!data || isFetching}>
       {!data ? (
-        <p>Loading...</p>
+        <Loader width="48px" center />
       ) : (
         <>
           <City mod="Caps" color="Purple100">

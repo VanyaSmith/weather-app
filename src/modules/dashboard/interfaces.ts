@@ -1,4 +1,4 @@
-export interface IWeatherCard {
+export interface WeatherCardData {
   weather: [
     {
       id: number // 800
@@ -39,11 +39,13 @@ export interface IWeatherCard {
   cod: number // 200
 }
 
-export interface IGeoCode {
+export interface CityData {
   name: string // "London",
-  local_names: Record<string, string>
-  lat: number // 51.5085,
-  lon: number // -0.1257,
   country: string // "GB"
   state?: string
+  lat: number // 51.5085,
+  lon: number // -0.1257,
+}
+export interface GeoCodeData extends CityData {
+  local_names: Record<string, string>
 }

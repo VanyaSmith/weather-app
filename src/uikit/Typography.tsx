@@ -21,13 +21,14 @@ type Text = {
   mod: keyof typeof theme.textMods
   color?: keyof typeof theme.colors
   bold?: boolean
+  margin?: string
 }
 export const Text = styled.p<Text>`
   color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.Gray500)};
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
 
   &:not(:last-child) {
-    margin-bottom: 8px;
+    margin: ${({ margin }) => margin || '0 0 8px'};
   }
 
   ${({ theme, mod }) => theme.textMods[mod]}

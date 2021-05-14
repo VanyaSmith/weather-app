@@ -24,7 +24,8 @@ export const GlobalStyles = () => {
         button {
           cursor: pointer;
           background-color: #fff;
-          border: 1px solid ${theme.colors.Gray200};
+          border: 0px;
+          text-align: left;
           transition: background-color 0.35s ease-out, transform 0.35s ease-out;
 
           &:hover {
@@ -35,6 +36,11 @@ export const GlobalStyles = () => {
             transition-duration: 0.175s;
             transition-timing-function: ease-in;
           }
+        }
+        input {
+          border: 0px;
+          ${theme.textMods.Body}
+          outline: none;
         }
       `}
     />

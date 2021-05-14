@@ -1,11 +1,11 @@
-import { IWeatherCard, IGeoCode } from './interfaces'
+import { WeatherCardData, CityData, GeoCodeData } from './interfaces'
 import { api } from 'src/utils/api'
 
-export const getWeatherCard = async (city: string) => {
+export const getWeatherCard = async (city: CityData) => {
   try {
-    return api<IWeatherCard>('/weather', {
+    return api<WeatherCardData>('/weather', {
       query: {
-        q: city,
+        q: `${city.name},${city.state || ''},${city.country}`,
       },
     })
   } catch (error) {
@@ -13,13 +13,17 @@ export const getWeatherCard = async (city: string) => {
   }
 }
 
-export const getGeo = async (city: string) => {
+export const getGeo = async (cityName: string) => {
   try {
-    return api<IGeoCode[]>('/direct', {
+    const data = await api<GeoCodeData[]>('/direct', {
       query: {
-        q: city,
+        q: cityName,
       },
     })
+    if (data.length === 0) {
+      throw new Error(`City called “${cityName}” was not found`)
+    }
+    return data.map(({ local_names, ...item }): CityData => item)
   } catch (error) {
     throw error
   }

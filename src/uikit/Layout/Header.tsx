@@ -23,11 +23,7 @@ export const HeaderLogo = styled.a`
   margin: 0 ${({ theme }) => theme.space[3]}px;
 `
 
-interface IHeaderProps {
-  className?: string
-}
-
-export const Header: React.FC<IHeaderProps> = React.memo(() => {
+export const Header = React.memo(() => {
   return (
     <StyledHeader>
       <Link href="/">

@@ -2,12 +2,12 @@ import { json2qs } from './json2qs'
 
 const HOST = process.env.NEXT_PUBLIC_HOST
 
-interface IParams extends RequestInit {
+interface ApiParams extends RequestInit {
   query?: Record<string, string | string[]> | URLSearchParams
   bodyData?: object
 }
 
-export async function api<T>(url: string, params: IParams = {}): Promise<T> {
+export async function api<T>(url: string, params: ApiParams = {}): Promise<T> {
   const { query, bodyData, ...fetchParams } = params
 
   const headers: HeadersInit = {
