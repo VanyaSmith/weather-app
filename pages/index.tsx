@@ -11,8 +11,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const cities = readCookie<CityData[]>('cities', context.req.headers.cookie)
   const queryClient = new QueryClient()
 
-  console.log({ cities })
-
   if (cities) {
     await Promise.all(
       cities.map((city) =>
@@ -33,16 +31,14 @@ const MainPage = () => {
   return (
     <Layout title="Weather forecast">
       <Row mb={3}>
-        <Col width={[1, 1 / 2]}>
+        <Col width={[1, 1, 0.55, 0.5]}>
           <Title>Weather forecast</Title>
           <Subtitle>
             Simple but powerful weather forcasting service based on OpenWeatherMap API
           </Subtitle>
         </Col>
-        <Col width={[1, 1 / 2]}>
-          <Flex alignItems="flex-end" justifyContent="flex-end" height="100%">
-            <GeoSearch />
-          </Flex>
+        <Col width={[1, 1, 0.45, 0.5]} as={Flex} alignItems="flex-end" justifyContent="flex-end">
+          <GeoSearch />
         </Col>
       </Row>
       <Dashboard />

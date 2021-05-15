@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 
+const breakpoints = ['30em', '40em', '52em', '64em']
 export const theme = {
   colors: {
     Gray100: '#FAFAF9',
@@ -34,4 +35,11 @@ export const theme = {
     `,
   },
   space: [0, 4, 8, 16, 24, 32, 48],
+  breakpoints,
+  mediaQueries: {
+    smallest: `@media screen and (min-width: ${breakpoints[0]})`, // 480px
+    small: `@media screen and (min-width: ${breakpoints[1]})`, // 640px
+    medium: `@media screen and (min-width: ${breakpoints[2]})`, // 832px
+    large: `@media screen and (min-width: ${breakpoints[3]})`, // 1024px
+  },
 }

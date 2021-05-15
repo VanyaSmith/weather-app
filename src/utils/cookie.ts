@@ -1,7 +1,5 @@
 export function setCookie(name: string, value: object) {
-  console.log('setCookie', { name, value })
   const cookie = [name, '=', encodeURI(JSON.stringify(value)), '; path=/;'].join('')
-  console.log({ cookie })
   document.cookie = cookie
 }
 

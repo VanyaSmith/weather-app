@@ -1,24 +1,27 @@
-import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
-import { getGeo } from './query'
-import { useMutation } from 'react-query'
 import { GeoSearchResultItem } from './components/GeoSearchResultItem'
-import { CityData } from './interfaces'
 import { Loader, Text } from 'uikit'
-import { useCities, useMutateCities } from './hooks/useCities'
-import { useOnClickOutside } from 'src/hooks/useClickOutside'
 import { Flex } from '@rebass/grid/emotion'
+import { useGeoSearch } from './hooks/useGeoSearch'
 
 const StyledGeoSearch = styled.form`
   position: relative;
   display: flex;
   z-index: 1;
+  width: 100%;
+
+  ${({ theme }) => theme.mediaQueries.small} {
+    width: 95%;
+  }
+  ${({ theme }) => theme.mediaQueries.medium} {
+    width: 74.5%;
+  }
 `
 const SearchInput = styled.input`
   background-color: ${({ theme }) => theme.colors.Gray300};
   border-radius: 8px 0 0 8px;
-  height: 48px;
-  width: 304px;
+  flex-grow: 1;
   padding: 12px 16px;
 `
 const SearchButton = styled.button`
@@ -48,42 +51,27 @@ const SearchError = styled.div`
 export interface GeoSearchProps {}
 
 export const GeoSearch = React.memo(() => {
-  const { cities } = useCities()
-  const { addCity } = useMutateCities()
-  const ref = useRef<HTMLFormElement | null>(null)
-  const [value, setValue] = useState('')
-  const [isShowResult, setIsShowResult] = useState(false)
   const {
-    data,
+    cities,
+    ref,
+    inputValue,
+    isShowResult,
+    searchResultData,
     isLoading,
     error,
     isError,
-    mutate: searchCities,
-  } = useMutation<CityData[], Error, string>((searchText: string) => getGeo(searchText))
-  useOnClickOutside(ref, () => setIsShowResult(false))
-
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
-  const handleFocusInput = () => {
-    if (value && data && data.length) {
-      setIsShowResult(true)
-    }
-  }
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    searchCities(value)
-    setIsShowResult(true)
-  }
-  const handleClickItem = useCallback((city: CityData) => {
-    addCity(city)
-    setIsShowResult(false)
-  }, [])
+    handleChangeInput,
+    handleFocusInput,
+    handleSubmit,
+    handleClickItem,
+  } = useGeoSearch()
 
   return (
     <StyledGeoSearch onSubmit={handleSubmit} ref={ref}>
       <SearchInput
         type="text"
         placeholder="Search"
-        value={value}
+        value={inputValue}
         onChange={handleChangeInput}
         onFocus={handleFocusInput}
       />
@@ -102,16 +90,16 @@ export const GeoSearch = React.memo(() => {
               <Text mod="Caption">Try different city name</Text>
             </SearchError>
           ) : (
-            data &&
-            data.map((geoCode) => {
+            searchResultData &&
+            searchResultData.map((searchResultItem) => {
               const isExist = Boolean(
-                cities?.find((city) => JSON.stringify(geoCode) === JSON.stringify(city))
+                cities?.find((city) => JSON.stringify(city) === JSON.stringify(searchResultItem))
               )
 
               return (
                 <GeoSearchResultItem
-                  key={geoCode.lat + geoCode.lon}
-                  {...geoCode}
+                  key={String(searchResultItem.lat) + String(searchResultItem.lon)}
+                  {...searchResultItem}
                   isExist={isExist}
                   onClick={handleClickItem}
                 />

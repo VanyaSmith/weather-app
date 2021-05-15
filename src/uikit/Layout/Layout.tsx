@@ -4,9 +4,9 @@ import { Header } from './Header'
 import styled from '@emotion/styled'
 
 const Content = styled.div`
-  max-width: 992px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding-top: ${({ theme }) => theme.space[4]}px;
+  padding: ${({ theme }) => theme.space[4]}px;
 `
 
 type Props = {

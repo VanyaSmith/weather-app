@@ -11,7 +11,7 @@ export const Dashboard = () => {
     <Row>
       {cities &&
         cities.map((city) => (
-          <Col width={[1, 1 / 2]} pb={5} pt={0} key={city.lat + city.lon}>
+          <Col width={[1, 0.5]} pb={5} pt={0} key={String(city.lat) + String(city.lon)}>
             <WeatherCard {...city} />
           </Col>
         ))}
