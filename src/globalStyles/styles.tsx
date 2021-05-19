@@ -17,7 +17,8 @@ export const GlobalStyles = () => {
         html,
         body {
           background-color: ${theme.colors.Gray200};
-          font-family: Merriweather, Helvetica, Arial, sans-serif;
+          font-family: ${theme.fontFamilies.sansSerif};
+          line-height: 1.5;
           font-size: 16px;
           color: ${theme.colors.Gray500};
         }
@@ -39,6 +40,7 @@ export const GlobalStyles = () => {
         }
         input {
           border: 0px;
+          font-family: ${theme.fontFamilies.sansSerif};
           ${theme.textMods.Body}
           outline: none;
         }

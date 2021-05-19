@@ -1,5 +1,12 @@
-import { Flex, Box, FlexProps } from '@rebass/grid/emotion'
+import styled from '@emotion/styled'
+import isPropValid from '@emotion/is-prop-valid'
+import { Flex, Box, FlexProps, BoxProps } from '@rebass/grid/emotion'
 
-export const Row = (props: FlexProps) => <Flex flexWrap="wrap" mx={[-2, -3, -3, -3]} {...props} />
-// export const Col = (props: BoxProps) => <Box p={[2, 3, 3, 3]} {...props} />
-export const Col = (props: FlexProps) => <Box p={[2, 3, 3, 3]} {...props} />
+const shouldForwardProp = (prop: PropertyKey) => isPropValid(prop) && prop !== 'width'
+
+const ClearBox = styled(Box, { shouldForwardProp })``
+const ClearFlex = styled(Flex, { shouldForwardProp })``
+
+export const Row = (props: FlexProps) => <Flex flexWrap="wrap" mx={-3} {...props} />
+export const Col = (props: BoxProps) => <ClearBox p={3} {...props} />
+export const ColFlex = (props: FlexProps) => <ClearFlex p={3} {...props} />

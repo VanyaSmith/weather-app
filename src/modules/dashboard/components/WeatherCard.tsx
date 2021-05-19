@@ -111,7 +111,7 @@ export const WeatherCard = React.memo(({ ...city }: WeatherCardProps) => {
         <Loader width="48px" center />
       ) : (
         <>
-          <City mod="Caps" color="Purple100">
+          <City mod="Caps" colorText="Purple100">
             {data.name}
           </City>
           <Flex flexDirection="column" mb={[3, 3, 3, 5]}>
@@ -124,7 +124,7 @@ export const WeatherCard = React.memo(({ ...city }: WeatherCardProps) => {
                 layout="fixed"
               />
             </Flex>
-            <Text mod="Caption" color="Gray400">
+            <Text mod="Caption" colorText="Gray400">
               {capitalizeFirstLetter(data.weather[0].description)}
             </Text>
           </Flex>

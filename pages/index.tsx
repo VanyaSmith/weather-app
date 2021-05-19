@@ -5,7 +5,7 @@ import { Col, Layout, Row, Subtitle, Title } from 'uikit'
 import { Dashboard, GeoSearch, getWeatherCard } from 'modules/dashboard'
 import { readCookie } from 'utils/cookie'
 import { CityData } from 'modules/dashboard/interfaces'
-import { Flex } from '@rebass/grid/emotion'
+import { ColFlex } from 'src/uikit/Grid'
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const cities = readCookie<CityData[]>('cities', context.req.headers.cookie)
@@ -37,9 +37,9 @@ const MainPage = () => {
             Simple but powerful weather forcasting service based on OpenWeatherMap API
           </Subtitle>
         </Col>
-        <Col width={[1, 1, 0.45, 0.5]} as={Flex} alignItems="flex-end" justifyContent="flex-end">
+        <ColFlex width={[1, 1, 0.45, 0.5]} alignItems="flex-end" justifyContent="flex-end">
           <GeoSearch />
-        </Col>
+        </ColFlex>
       </Row>
       <Dashboard />
     </Layout>
